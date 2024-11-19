@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+
+  mongodb:
+    image: mongo:6-jammy
+    restart: always
+    environment:
+      - MONGO_URL=mongodb+srv://root:gc2cYxcm@cluster0.kd8sh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    ports:
+      - '27018:27017'   # Mapped port 27018 on host to port 27017 on container
+    # volumes:
+    #   - dbdata:/data/db  # Persistent storage for MongoDB data
+    expose:
+      - 27017            # Exposes MongoDB's internal port for communication with node-app
+
+  node-app:
+    build: 
+      context: ../../api   # Điều chỉnh lại để trỏ đúng đến thư mục 'api' (relative path từ docker/backend)
+      dockerfile: Dockerfile   # Đảm bảo Dockerfile có tên đúng là Dockerfile (nhạy cảm với chữ hoa chữ thường)
+    image: node-app
+    restart: unless-stopped
+    environment:
+      # - MONGO_URL=mongodb+srv://root:gc2cYxcm@cluster0.kd8sh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0  # Giữ nguyên MONGO_URL như bạn yêu cầu
+      # - JWT=WaOaGBE8puZ/zshjLXj5tzcawmEUfFN0znHil40SQvI=
+      - DB_PORT=27017
+      - DB_HOST=mongodb
+    ports:
+      - '8800:8800'   # Ánh xạ cổng 8800 trên host sang cổng 8800 trong container cho ứng dụng của bạn
+    depends_on:
+      - mongodb   # Đảm bảo MongoDB được khởi động trước khi node-app bắt đầu
+    # volumes:
+    #   - ../../api:/src   # Mount thư mục api vào /src trong container (relative path)
+
+# volumes:
+#   dbdata:  # Volume để lưu trữ dữ liệu MongoDB một cách bền vững

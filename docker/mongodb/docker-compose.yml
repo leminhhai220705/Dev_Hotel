@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+
+  mongodb:
+    image: mongo:6-jammy
+    restart: always
+    environment:
+      - MONGO_URL=mongodb+srv://root:gc2cYxcm@cluster0.kd8sh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    ports:
+      - '27018:27017'   # Mapped port 27018 on host to port 27017 on container

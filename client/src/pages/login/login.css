@@ -1,0 +1,93 @@
+.login {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://media.istockphoto.com/id/1360554439/vi/anh/%C4%91%E1%BA%A3o-nhi%E1%BB%87t-%C4%91%E1%BB%9Bi-maldives.jpg?s=612x612&w=0&k=20&c=pqWxvBFhn0_mJQF-oNyiDS56iahHule2vZmmVbjc_TA=");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+}
+
+.lContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: rgba(110, 229, 240, 0.494);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.lInput {
+  height: 20px;
+  padding: 10px;
+  font-size: 16px;
+  border: 5px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+  transition: border 0.3s ease;
+  position: relative;
+}
+
+.lInput:focus {
+  border-color: #0071c2;
+}
+
+.lButton {
+  height: 45px;
+  padding: 0 25px;
+  background-color: rgba(12, 72, 192, 0.878);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.5s ease-out;
+  border: none;
+}
+
+.lButton:hover {
+  background-color: #b4c8ce;
+  transform: translateY(-7px);
+}
+
+.lButton:disabled {
+  background-color: #5c5c8a80;
+  cursor: pointer;
+  transform: none;
+}
+
+.lInput {
+  margin-bottom: 10px;
+}
+
+.lContainer h1 {
+  font-family: monospace;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.lContainer > * {
+  margin-bottom: 15px;
+}
+
+.HLogin {
+  background: #b8e1fc;
+  background: radial-gradient(
+    circle farthest-corner at center center,
+    #327bac 0%,
+    #3531b4 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  font-size: 30px;
+  position: absolute;
+  top: 150px;
+  font-weight: bolder;
+}

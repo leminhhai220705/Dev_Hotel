@@ -1,0 +1,39 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+  IMAGE_FE_TAG: leminhhai220709/dev-bookingapp-client:$CI_COMMIT_SHORT_SHA
+  IMAGE_BE_TAG: leminhhai220709/dev-bookingapp-api:$CI_COMMIT_SHORT_SHA
+
+stages:
+  - docker-build-frontend
+  - docker-build-backend
+
+build_frontend:
+  stage: docker-build-frontend
+  script:
+    # Login to the Docker registry
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin
+    # Build the Docker image
+    - cd client
+    - docker build -t $IMAGE_FE_TAG .
+    # Push the Docker image to the registry
+    - docker push $IMAGE_FE_TAG
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"'
+
+build_backend:
+  stage: docker-build-backend
+  script:
+    # Login to the Docker registry
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin
+    # Build the Docker image
+    - cd api
+    - docker build -t $IMAGE_BE_TAG .
+    # Push the Docker image to the registry
+    - docker push $IMAGE_BE_TAG
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"'
